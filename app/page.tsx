@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   FileText,
@@ -227,3 +228,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+export const dynamic = "force-dynamic";
