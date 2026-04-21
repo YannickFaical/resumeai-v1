@@ -1,7 +1,12 @@
 import OpenAI from "openai";
 import { ATSResult } from "@/types";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Utilise Groq (IA gratuite, compatible API OpenAI)
+// Crée une clé API gratuite sur https://console.groq.com
+const groq = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
 
 export async function analyzeCV(
   cvText: string,
@@ -32,8 +37,8 @@ Retourne UNIQUEMENT un JSON valide avec cette structure exacte:
 
 Sois précis, actionnable et professionnel. Score ATS basé sur: mots-clés (40%), expérience (30%), compétences (20%), format (10%).`;
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+  const response = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
     messages: [{ role: "user", content: prompt }],
     response_format: { type: "json_object" },
     temperature: 0.3,
