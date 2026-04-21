@@ -11,15 +11,13 @@ export default function UpgradePage() {
   const [loading, setLoading] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    if (searchParams.get("canceled")) {
-      toast.error("Paiement annulé.");
-    }
-    const plan = searchParams.get("plan");
-    if (plan) {
-      handleCheckout(plan);
-    }
-  }, []);
+useEffect(() => {
+  const plan = searchParams?.get("plan");
+
+  if (plan && typeof window !== "undefined") {
+    handleCheckout(plan);
+  }
+}, [searchParams]);
 
   async function handleCheckout(plan: string) {
     setLoading(plan);
